@@ -54,7 +54,7 @@ var emptyChecker = {
             viewReferer.renderGreetingMessage(greetMsg);
   	  },
   	  getGreetings : function(hrs){
-  	  	//window.emptyChecker.checkIsEmtpy(hrs);
+  	  	window.emptyChecker.checkIsEmtpy(hrs,' Invalid Hours Passed / Hours can not be Emtpy ');
   	  	if(hrs<12)
   	  		return 'Good Morning';
   	  	else if(hrs >= 12 && hrs <= 15)
