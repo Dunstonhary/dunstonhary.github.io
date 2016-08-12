@@ -56,15 +56,15 @@ var emptyChecker = {
   	  getGreetings : function(hrs){
   	  	window.emptyChecker.checkIsEmtpy(hrs,' Invalid Hours Passed / Hours can not be Emtpy ');
   	  	if(hrs<12)
-  	  		return 'Good Morning';
+  	  		return 'Good morning';
   	  	else if(hrs >= 12 && hrs <= 15)
-  	  		return 'Good Noon';
+  	  		return 'Good noon';
   	  	else if(hrs >= 15 && hrs <=19)
-  	  		return 'Good Evening';
+  	  		return 'Good evening';
   	  	else if(hrs >=19 && hrs<=24)
-  	  		return "It's Night ! Still you are here, I Appreciate Your Dedication ";
+  	  		return '';
   	  	else
-  	  		return 'Good that you stepped In to Learn';
+  	  		return 'Greetings';
   	  },
   };
   var view = {
@@ -75,7 +75,7 @@ var emptyChecker = {
   	  	var self = this;
   	  	return {
   	  		renderGreetingMessage : function(message){
-  	  			self.greetUser.innerHTML = message || ' Huh! Good that you are Here ....!';
+  	  			self.greetUser.innerHTML = message || ' Greetings..!';
   	  		}
   	  };
   	}
