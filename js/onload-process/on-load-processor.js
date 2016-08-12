@@ -5,8 +5,13 @@ var emptyChecker = {
   	  checkIsEmtpy : function(obj,message){
   	  	 try{
   	  	 	mesage  = message || ' Invalid Value ';
-  	  	 	if(!obj || Object.keys(obj).length ==0)
-  	  	 		throw message;
+          if(typeof obj == 'object')
+            if(!obj || Object.keys(obj).length ==0)
+  	  	 		 throw message;
+          else if(!obj)
+             throw message;
+          else if(!obj.length)
+             throw message;
   	  	 }catch(error){
   	  	 	console.error(' Error on emptyChecker : checkIsEmtpy() ',error);
   	  	 }
