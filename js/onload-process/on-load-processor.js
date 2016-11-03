@@ -17,7 +17,7 @@ var emptyChecker = {
   	  	 }
   	  }
   }; 
-  window.emptyChecker;
+  window.emptyChecker = emptyChecker;
 
 /*
     On Load Processor Begins
@@ -59,17 +59,17 @@ var emptyChecker = {
             viewReferer.renderGreetingMessage(greetMsg);
   	  },
   	  getGreetings : function(hrs){
-  	  	window.emptyChecker.checkIsEmtpy(hrs,' Invalid Hours Passed / Hours can not be Emtpy ');
-  	  	if(hrs<12)
-  	  		return 'Good morning';
-  	  	else if(hrs >= 12 && hrs <= 15)
-  	  		return 'Good noon';
-  	  	else if(hrs >= 15 && hrs <=19)
-  	  		return 'Good evening';
-  	  	else if(hrs >=19 && hrs<=24)
-  	  		return '';
-  	  	else
-  	  		return 'Greetings';
+  	  	try{ 
+            window.emptyChecker.checkIsEmtpy(hrs,' Invalid Hours Passed / Hours can not be Emtpy ');
+            if(hrs<12)
+              
+              return 'Greetings';
+        }
+        catch(exception){
+          console.error(' exception araised on get greetings  ',exception);
+          
+        }
+  	  	
   	  },
   };
   var view = {
@@ -98,7 +98,7 @@ var emptyChecker = {
 /*
     **********  OnLoad Engine Start  **********
  */
- 	window.addEventListener('load',window.onLoadProcessor.GreetUser());
+ 	window.addEventListener('load',window.onLoadProcessor.GreetUser);
 /*
    ********** End Of Onload Engine Finish **********
  */
