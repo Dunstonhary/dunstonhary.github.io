@@ -63,7 +63,7 @@ var emptyChecker = {
             window.emptyChecker.checkIsEmtpy(hrs,' Invalid Hours Passed / Hours can not be Emtpy ');
             if(hrs<12)
               
-              return 'Greetings';
+              return 'Nothing Big in here! To further lookup';
         }
         catch(exception){
           console.error(' exception araised on get greetings  ',exception);
