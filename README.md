@@ -1,26 +1,65 @@
-# [Start Bootstrap](http://startbootstrap.com/) - [Grayscale](http://startbootstrap.com/template-overviews/grayscale/)
+# AI × Space Lab — Personal Working Repository
 
-[Grayscale](http://startbootstrap.com/template-overviews/grayscale/) is a multipurpose, one page HTML theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This template features various content sections and a Google Maps section with a custom map marker.
+This repository contains my personal experiments, structured learning, and project implementations in Artificial Intelligence, Deep Learning, and space-inspired computational thinking.
 
-## Getting Started
+It serves as a working lab where ideas move from theory → experimentation → visualization → evaluation.
 
-To use this template, choose one of the following options to get started:
-* Download the latest release on Start Bootstrap
-* Fork this repository on GitHub
+The site is deployed using GitHub Pages and showcases selected projects in a structured and minimal format.
 
-## Bugs and Issues
+---
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/IronSummitMedia/startbootstrap-grayscale/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/grayscale/).
+## Repository Purpose
 
-## Creator
+This repository is used to:
 
-Start Bootstrap was created by and is maintained by **David Miller**, Managing Parter at [Iron Summit Media Strategies](http://www.ironsummitmedia.com/).
+- Develop and document AI learning projects  
+- Experiment with sequence models (RNN, GRU, LSTM)  
+- Build end-to-end ML pipelines  
+- Visualize model performance and evaluation metrics  
+- Maintain a structured project portfolio  
 
-* https://twitter.com/davidmillerskt
-* https://github.com/davidtmiller
+It evolves continuously as new experiments are added.
 
-Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+---
 
-## Copyright and License
+## Current Focus Areas ( ML and AI Projects )
 
-Copyright 2013-2015 Iron Summit Media Strategies, LLC. Code released under the [Apache 2.0](https://github.com/IronSummitMedia/startbootstrap-grayscale/blob/gh-pages/LICENSE) license.
+- ✅ Sentiment Analysis using Embeddings + RNN / GRU / LSTM  
+- ⏳ Tranformer-based sequence modeling (future)
+
+---
+
+## Repository Structure
+index.html                 → Homepage
+projects/                  → Project briefings
+
+---
+
+## Deployment
+
+The website is deployed via GitHub Pages with a custom domain:
+
+👉 https://dunstonhary.space
+
+---
+
+## Philosophy
+
+This repository is not just a code archive.  
+It reflects:
+
+- Structured learning  
+- Iterative experimentation  
+- Model evaluation discipline  
+- Clear communication of technical work  
+
+The goal is clarity, not clutter.
+
+---
+
+## License
+
+This repository contains personal educational and experimental work.  
+Unless otherwise stated, code and content are for learning and portfolio purposes.
+
+
