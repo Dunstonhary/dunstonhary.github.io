@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sentiment Analysis | RNN / GRU / LSTM</title>
+  <meta name="description" content="Project page: sentiment analysis with embeddings, RNN/GRU/LSTM, and evaluation visuals." />
+  <style>
+    :root{
+      --bg:#070815; --fg:#e9ecff; --muted:#aab1d6; --accent:#7c9cff;
+      --card:rgba(255,255,255,.06); --line:rgba(255,255,255,.12);
+      --code:rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.65;background:var(--bg);color:var(--fg)}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    .wrap{max-width:980px;margin:auto;padding:40px 18px 70px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .crumb{color:var(--muted);font-size:14px}
+    h1{font-size:38px;line-height:1.12;margin:16px 0 8px}
+    .sub{margin:0;color:var(--muted);max-width:80ch}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .tag{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+      border:1px solid var(--line);border-radius:999px;padding:6px 10px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:22px}
+    .card{grid-column:span 12;background:var(--card);border:1px solid var(--line);
+      border-radius:16px;padding:18px 18px 16px}
+    @media (min-width: 860px){
+      .card.half{grid-column:span 6}
+      .card.third{grid-column:span 4}
+    }
+    h2{margin:34px 0 10px;color:var(--accent);font-size:18px}
+    p{margin:0;color:var(--muted)}
+    ul{margin:10px 0 0 18px;color:var(--muted)}
+    li{margin:6px 0}
+    .kpi{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .pill{border:1px solid var(--line);border-radius:999px;padding:8px 10px;font-size:13px;color:var(--muted)}
+    .pill b{color:var(--fg);font-weight:650}
+    pre{margin:12px 0 0;background:var(--code);border:1px solid var(--line);border-radius:14px;
+      padding:14px;overflow:auto}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:var(--fg)}
+    figure{margin:12px 0 0}
+    figcaption{color:var(--muted);font-size:13px;margin-top:8px}
+    img{max-width:100%;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+    .note{font-size:13px;color:var(--muted);margin-top:10px}
+    .sep{height:1px;background:var(--line);margin:34px 0}
+    footer{margin-top:46px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top" id="top">
+      <div class="crumb"><a href="../index.html">← Home</a> / Projects / Sentiment Analysis</div>
+      <div class="crumb">Last updated: <span id="lastUpdated">—</span></div>
+    </div>
+
+    <h1>Sentiment Analysis with Embeddings + RNN / GRU / LSTM</h1>
+    <p class="sub">
+      This page summarizes how the sentiment classifier was built: data preparation, embedding strategy,
+      training setup, model variants (baseline vs GRU vs LSTM), and the visuals used to validate results.
+      Code is intentionally shown only as small snippets (no full notebook dump).
+    </p>
+
+    <div class="tags">
+      <span class="tag">NLP</span>
+      <span class="tag">Sequence Classification</span>
+      <span class="tag">Embeddings</span>
+      <span class="tag">RNN • GRU • LSTM</span>
+    </div>
+
+    <div class="grid">
+      <div class="card third">
+        <p><b style="color:var(--fg)">Task</b></p>
+        <p>Sentiment classification (positive vs negative vs neutral vs irrelevant )</p>
+      </div>
+      <div class="card third">
+        <p><b style="color:var(--fg)">Input</b></p>
+        <p>Tokenized text sequences with padding/truncation</p>
+      </div>
+      <div class="card third">
+        <p><b style="color:var(--fg)">Output</b></p>
+        <p>Probability score + class label</p>
+      </div>
+    </div>
+
+    <h2>1) Data & Preprocessing</h2>
+    <div class="grid">
+      <div class="card half">
+        <p>
+          Text was cleaned and standardized before training. The objective was to reduce noise without losing meaning
+          (especially around negations like “not good”).
+        </p>
+        <ul>
+          <li>Lowercasing + basic normalization</li>
+          <li>Tokenization → integer sequences</li>
+          <li>Padding/truncation to a fixed length</li>
+          <li>Train/validation split with consistent random seed</li>
+        </ul>
+
+        <pre><code># Tokenization + padding (snippet)
+tokenizer = Tokenizer(num_words=VOCAB_SIZE, oov_token="&lt;OOV&gt;")
+tokenizer.fit_on_texts(train_texts)
+
+X_train = pad_sequences(tokenizer.texts_to_sequences(train_texts),
+                        maxlen=MAX_LEN, padding="post", truncating="post")
+X_val   = pad_sequences(tokenizer.texts_to_sequences(val_texts),
+                        maxlen=MAX_LEN, padding="post", truncating="post")</code></pre>
+
+        
+      </div>
+
+      <div class="card half">
+        <p><b style="color:var(--fg)">Visual checks used</b></p>
+        <ul>
+          <li>Word cloud to quickly inspect dominant vocabulary</li>
+
+        </ul>
+
+        <figure>
+          <img src="../projects/assets/rnn/word-cloud.png" alt="Word cloud for the corpus (placeholder)" />
+          <img src="../projects/assets/rnn/word-cloud-positive.png" alt="Word cloud for the corpus (placeholder)" />
+          
+        </figure>
+      </div>
+    </div>
+
+    <h2>2) Embedding Strategy</h2>
+    <div class="grid">
+      <div class="card half">
+        <p>
+          The embedding layer converts word IDs into dense vectors so the model can learn semantic relationships.
+          We used trainable embeddings as the default approach.
+        </p>
+
+        <div class="kpi">
+          <div class="pill"><b>Vocab:</b> 20000 (default constant) </div>
+          <div class="pill"><b>Dim:</b> 128 & 68</div>
+          <div class="pill"><b>Len:</b> 163</div>
+        </div>
+
+        <pre><code># Embedding layer (snippet)
+model = Sequential([
+  Embedding(input_dim=VOCAB_SIZE, output_dim=EMBED_DIM, input_length=MAX_LEN),
+  ...</code></pre>
+
+        <p class="note">
+          Optional upgrade: use pre-trained embeddings (e.g., GloVe) to improve generalization on small datasets.
+        </p>
+      </div>
+
+      <div class="card half">
+        <p><b style="color:var(--fg)">Baseline vs Sequence Models</b></p>
+        <ul>
+          <li><b style="color:var(--fg)">RNN:</b> Embedding → SimpleRNN → dense classifier</li>
+          <li><b style="color:var(--fg)">GRU:</b> Embedding → GRU → dense classifier</li>
+          <li><b style="color:var(--fg)">LSTM:</b> Embedding → LSTM → dense classifier</li>
+        </ul>
+
+        <pre><code># Baseline (snippet)
+Embedding(...)
+GlobalAveragePooling1D()
+Dense(4, activation="sigmoid")</code></pre>
+      </div>
+    </div>
+
+    <h2>3) Model Variants Compared</h2>
+    <div class="grid">
+      <div class="card">
+        <p>
+          The main comparison was whether sequence-aware units (RNN/GRU/LSTM) improved over an embedding-only baseline.
+          GRU/LSTM typically help when longer dependencies matter and gradients need more stability.
+        </p>
+
+        <div class="grid" style="margin-top:14px">
+          <div class="card third">
+            <p><b style="color:var(--fg)">SimpleRNN</b></p>
+            <p>Good for fundamentals + quick tests; limited for long context.</p>
+            <pre><code>Embedding(...)
+SimpleRNN(UNITS)
+Dense(4, "sigmoid")</code></pre>
+          </div>
+
+          <div class="card third">
+            <p><b style="color:var(--fg)">GRU</b></p>
+            <p>Fewer gates than LSTM; often faster with strong performance.</p>
+            <pre><code>Embedding(...)
+GRU(UNITS)
+Dense(4, "sigmoid")</code></pre>
+          </div>
+
+          <div class="card third">
+            <p><b style="color:var(--fg)">LSTM</b></p>
+            <p>Strong for longer sequences; more parameters / compute.</p>
+            <pre><code>Embedding(...)
+LSTM(UNITS)
+Dense(4, "sigmoid")</code></pre>
+          </div>
+        </div>
+
+       
+      </div>
+    </div>
+
+    <h2>4) Training Setup</h2>
+    <div class="grid">
+      <div class="card half">
+        <p>Training used a standard binary classification setup.</p>
+        <ul>
+          <li>Loss: binary cross-entropy</li>
+          <li>Optimizer: Adam</li>
+          <li>Regularization: dropout (if overfitting appears)</li>
+          <li>Callbacks: early stopping / checkpoints</li>
+        </ul>
+
+        <pre><code># Compile + train (snippet)
+model.compile(optimizer="adam",
+              loss="binary_crossentropy",
+              metrics=["accuracy"])
+
+history = model.fit(X_train, y_train,
+                    validation_data=(X_val, y_val),
+                    epochs=EPOCHS,
+                    batch_size=BATCH_SIZE)</code></pre>
+      </div>
+
+      <div class="card half">
+        <p><b style="color:var(--fg)">Training curves</b></p>
+        <figure>
+          <img src="../projects/assets/rnn/BiLSTM-Accuracy-curve.png" alt="Training/validation curves (placeholder)" />
+          <img src="../projects/assets/rnn/BiGRU-Accuracy-curve.png" alt="Training/validation curves (placeholder)" />
+          <img src="../projects/assets/rnn/BiSimpleRNN-Accuracy-curve.png" alt="Training/validation curves (placeholder)" />
+          
+        </figure>
+      </div>
+    </div>
+
+    <h2>5) Evaluation & Results</h2>
+    <div class="grid">
+      <div class="card half">
+        <p>
+          Evaluation focused on both metrics and error patterns (examples that break the model).
+        </p>
+        <ul>
+          <li>Accuracy, Precision, Recall, F1</li>
+
+        </ul>
+
+        <pre><code>y_pred = np.argmax(model_gru.predict(X_test), axis=1)
+y_true = np.argmax(y_test, axis=1)
+print(classification_report(y_true, y_pred_gru, target_names=le.classes_))</code></pre>
+        <figure>
+          <figcaption>BiGRU_classification_report Matrix:</figcaption>
+          <img src="../projects/assets/rnn/BiGRU_classification_report.png" alt="Confusion matrix (placeholder)" />
+          <figcaption>BiLSTM_classification_report Matrix:</figcaption>
+          <img src="../projects/assets/rnn/BiLSTM_classification_report.png" alt="Confusion matrix (placeholder)" />
+          <figcaption>BiSimpleRNN_classification_report Matrix:</figcaption>
+          <img src="../projects/assets/rnn/SimpleRNN_classification_report.png" alt="Confusion matrix (placeholder)" />
+          
+        </figure>
+
+      </div>
+
+    </div>
+
+    <div class="sep"></div>
+
+  
+
+    <footer>
+      <div>© 2026 Sasi Dunston</div>
+      <div><a href="../index.html">Home</a> • <a href="#top">Top</a></div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("lastUpdated").textContent = new Date().toLocaleDateString();
+  </script>
+</body>
+</html>

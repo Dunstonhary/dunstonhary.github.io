@@ -1,185 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Dunston</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/grayscale.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sasi Dunston | AI × Space</title>
+  <meta name="description" content="AI learning notes, experiments, and space-inspired projects." />
+  <style>
+    :root{--bg:#070815;--fg:#e9ecff;--muted:#aab1d6;--accent:#7c9cff;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.12)}
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--fg);background:
+      radial-gradient(900px 420px at 15% 15%, rgba(124,156,255,.20), transparent 60%),
+      radial-gradient(700px 380px at 85% 30%, rgba(140,80,255,.14), transparent 60%),
+      radial-gradient(900px 500px at 55% 105%, rgba(0,255,209,.08), transparent 55%),
+      var(--bg);}
+    a{color:var(--fg);text-decoration:none} a:hover{color:var(--accent)}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{font-weight:700;letter-spacing:.4px}
+    .links{display:flex;gap:14px;color:var(--muted);font-size:14px}
+    .links a{color:var(--muted)} .links a:hover{color:var(--fg)}
+    .hero{padding:64px 0 26px}
+    .kicker{color:var(--muted);font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+    h1{margin:.35rem 0 0;font-size:44px;line-height:1.1}
+    .sub{margin:14px 0 0;color:var(--muted);max-width:62ch}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:26px}
+    .card{grid-column:span 12;background:var(--card);border:1px solid var(--line);
+      border-radius:16px;padding:18px 18px 16px;backdrop-filter: blur(8px)}
+    @media (min-width: 760px){.card.half{grid-column:span 6}}
+    .card h2{margin:0 0 6px;font-size:16px}
+    .card p{margin:0;color:var(--muted)}
+    .btn{display:inline-flex;align-items:center;gap:8px;margin-top:12px;
+      padding:10px 12px;border-radius:12px;border:1px solid var(--line);
+      background:rgba(0,0,0,.18);color:var(--fg);font-size:14px}
+    .btn:hover{border-color:rgba(124,156,255,.55)}
+    footer{margin-top:44px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .dot{display:inline-block;width:6px;height:6px;border-radius:99px;background:var(--accent);margin:0 8px 1px 0;opacity:.9}
+  </style>
 </head>
-
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i>  <span class="light" >Hey, hi ! this is Dunston </span> 
-                </a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#download">Download</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
+<body>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="dot"></span>DunstonHary</div>
+      <div class="links">
+        <a href="#projects">Projects</a>
+        <!-- <a href="#about">About</a> -->
+        <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
     </nav>
 
-    <!-- Intro Header -->
-    <header class="intro">
-        <div class="intro-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h2 class="brand-heading" id='greet-user'>Welcome</h2>
-                        <h3 ></h3>
-                       <!--  <p class="intro-text">Hello, I'm <br></p> -->
-                        <a href="#about" class="btn btn-circle page-scroll">
-                            <i class="fa fa-angle-double-down animated"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <header class="hero">
+      
+      <p class="sub">
+        A simple hub for my learning in Artificial Intelligence and deep learning systems.
+      </p>
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="container content-section text-center">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h2>About Me</h2>
-                <p> Wanna'b  in, Enjoy in, as a dwell in Tech  !
-                 OfCourse yeah i'm not a technological Geek nor a Supreme powered Intelligent Techy....! No no yet, still towards it.... <img src="http://www.pic4ever.com/images/treeswing.gif"/ alt=""></p>
+    <section id="projects" class="grid" aria-label="Projects">
+      <div class="card half">
+        <h2>Sequence Models</h2>
+        <p>Notes and experiments on RNN / GRU / LSTM and time‑series patterns.</p>
+        <a class="btn" href="projects/sentiment-analysis.html">Open project →</a>
+      </div>
 
-                <!-- <p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p> -->
-                <h3> A Poor Story On Me!</h3>
-                <h4>(Language Witch)</h4>
+      <!-- <div class="card half">
+        <h2>Capstone: Healthcare Intelligence</h2>
+        <p>SQL → EDA → ML pipeline for hospital operations & revenue risk.</p>
+        <a class="btn" href="projects/healthcare-intelligence.html">Open project →</a>
+      </div> -->
 
-                
-                <p>The JS (i.e,Language Witch) that grabbed me into its pit ! Though my area of start is Java, still i don't know what pushes me to go greater in the next lettered BIG word<i class="fa fa-hand-o-right" aria-hidden="true" style="margin: 0 10px;color: #e49a24;"></i><a href="https://www.javascript.com/">JavaScript</a> </p>
-                <!-- <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p> -->
-            </div>
-        </div>
+      <div class="card">
+        <h2>Coming next</h2>
+        <p>Transformers, evaluation checklists</p>
+      </div>
     </section>
 
-    <!-- Download Section -->
-    <section id="download" class="content-section text-center">
-        <div class="download-section">
-            <div class="container">
-                <div class="col-lg-8 col-lg-offset-2" style="margin-bottom: 30px;"> 
-                    <h2 style="margin-bottom: 20px;">Wanna Be a Basic Expert in JS</h2>
-                    <!-- <p>Are you curious to know to start with JavaScript ?  </p> -->
-                    <a href="#" class="btn btn-default btn-lg">Start here...!</a>
-                </div>
-                <div class="col-lg-8 col-lg-offset-2" style="margin-bottom: 30px;"> 
-                    <h2 style="margin-bottom: 20px;">WebAudio API in JS</h2>
-                    <!-- <p>Are you curious to know to start with JavaScript ?  </p> -->
-                    <a href="../views/webAudio.html" class="btn btn-default btn-lg">Start here...!</a>
-                </div>
-                
-                <div class="col-lg-8 col-lg-offset-2" style="margin-bottom: 30px;"> 
-                    <h2 style="margin-bottom: 20px;">Hang on ! </h2>
-                    <p>There are lot more to come </p>
-                    <!-- <a href="#" class="btn btn-default btn-lg">You are yet to get More</a> -->
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- <section id="about" class="grid" aria-label="About">
+      <div class="card">
+        <h2>About</h2>
+        <p>Passionate about Artificial Intelligence and deep learning systems.</p>
+      </div>
+    </section> -->
 
-    <!-- Contact Section -->
-    <section id="contact" class="container content-section text-center">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h2>Contact</h2>
-                <p>Feel free to email me, give me your suggestions or feedbacks or to just say Hello!</p>
-                <p><a href="mailto:feedback@startbootstrap.com">dunstonatdev@gmail.com</a>
-                </p>
-                <ul class="list-inline banner-social-buttons">
-                    <li>
-                        <a href="#" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/Dunstonhary/dunstonhary.github.io" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                    </li>
-                    <li>
-                        <a href="https://plus.google.com/+SasiDunston" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Map Section -->
-    <!-- <div id="map"></div> -->
-
-    <!-- Footer -->
     <footer>
-        <div class="container text-center">
-            <p>Copyright &copy; Dunston 2019</p>
-        </div>
+      <div>© 2026 Sasi Dunston</div>
+      <div>Built on GitHub Pages</div>
     </footer>
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
-
-    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ --><!-- 
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script> -->
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/grayscale.js"></script>
-
-    <!-- Script Injector -->
-    <script src="bundle.fdba70aef9fedaf08087.js"></script>
-
+  </div>
 </body>
-
 </html>
